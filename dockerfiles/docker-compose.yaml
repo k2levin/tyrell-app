@@ -1,0 +1,39 @@
+services:
+  app:
+    build:
+      context: ./../.
+      dockerfile: ./dockerfiles/Dockerfile
+    container_name: app
+    ports:
+      - 8081:8081 # frontend
+      - 8080:8080 # backend
+    env_file: ./../backend/.env
+    environment:
+      - SCHEDULER=N
+      - QWORKER=N
+    volumes:
+      - "$PWD:/var/www/html"
+    networks:
+      - mysql-network
+  adminer:
+    image: adminer:4
+    container_name: adminer
+    ports:
+      - 8082:8080
+    networks:
+      - mysql-network
+  db:
+    image: mysql:8.0
+    container_name: db
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - TZ=Asia/Singapore
+    networks:
+      - mysql-network
+networks:
+  mysql-network:
+volumes:
+  db_data:

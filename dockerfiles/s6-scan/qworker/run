@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# if run s6-svscan with PID 1 with root user
+# exec s6-setuidgid www-data php /var/www/html/artisan queue:work
+
+exec php /var/www/html/artisan queue:work

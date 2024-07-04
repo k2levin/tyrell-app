@@ -1,0 +1,8 @@
+#result {
+    white-space: pre-line;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+:root {
+    --bs-body-bg: var(--bs-gray-100);
+}
